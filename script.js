@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const horaSelect = document.getElementById("hora");
   const totalSpan = document.getElementById("total-faturamento");
 
-  // Carregar serviços
   fetch("servicos.php")
     .then(res => res.json())
     .then(servicos => {
@@ -20,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-  // Gerar horários simples (08:00 às 22:00)
   dataInput.addEventListener("change", () => {
     horaSelect.innerHTML = '<option value="">Selecione o horário</option>';
     const blocos = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30",
@@ -35,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Submeter agendamento
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     const dados = new URLSearchParams();
@@ -60,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 
-  // Carregar agendamentos do dia selecionado
   window.carregarAgendamentos = function () {
     const dataExibida = document.getElementById("data-exibida").value;
     fetch(`listar_agendamentos.php?data=${dataExibida}`)
@@ -71,11 +67,11 @@ document.addEventListener("DOMContentLoaded", function () {
         dados.forEach(a => {
           const linha = document.createElement("tr");
           linha.innerHTML = `
-            <td>${a.nome_cliente}</td>
-            <td>${a.servico}</td>
-            <td>${a.data}</td>
-            <td>${a.hora}</td>
-            <td>${a.status}</td>`;
+            <td data-label="Nome">${a.nome_cliente}</td>
+            <td data-label="Serviço">${a.servico}</td>
+            <td data-label="Data">${a.data}</td>
+            <td data-label="Hora">${a.hora}</td>
+            <td data-label="Status">${a.status}</td>`;
           tabela.appendChild(linha);
           if (a.status !== "cancelado") total += parseFloat(a.preco);
         });
@@ -83,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   };
 
-  // Carregar agendamentos do dia atual ao iniciar
   document.getElementById("data-exibida").valueAsDate = new Date();
   carregarAgendamentos();
 });
