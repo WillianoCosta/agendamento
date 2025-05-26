@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Salão Sempre Bela</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .em-atendimento {
+      background-color: #d4edda;
+      animation: pulse 1s infinite alternate;
+    }
+    .atendido {
+      background-color: #fff3cd;
+    }
+    .cancelado {
+      background-color: #f8d7da;
+      text-decoration: line-through;
+    }
+    @keyframes pulse {
+      from { opacity: 1; }
+      to { opacity: 0.6; }
+    }
+    #mensagem-cancelamento {
+      margin-top: 10px;
+      font-weight: bold;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Salão Sempre Bela</h1>
+    <form id="form-agendamento">
+      <input type="text" id="nome" placeholder="Seu nome" required>
+      <select id="servico" required>
+        <option value="">Carregando serviços...</option>
+      </select>
+      <input type="date" id="data" required>
+      <select id="hora" required>
+        <option value="">Selecione o horário</option>
+      </select>
+      <button type="submit">Agendar</button>
+    </form>
+
+    <h2>Agendamentos</h2>
+    <div style="text-align: center; margin-bottom: 10px;">
+      <input type="date" id="data-exibida" value="2024-01-01" />
+      <button onclick="carregarAgendamentos()">🔄 Atualizar</button>
+    </div>
+
+    <table id="tabela-agendamentos">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Serviço</th>
+          <th>Data</th>
+          <th>Hora</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h3>Total do Dia: R$ <span id="total-faturamento">0,00</span></h3>
+    <p id="mensagem-cancelamento"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
